@@ -1,0 +1,108 @@
+/* Conteneur du formulaire */
+.form-container {
+    padding: 30px 40px;
+    border: 1px solid #000; 
+    width: 400px; 
+    box-sizing: border-box;
+     margin: 50px auto;
+}
+
+/* Titre du formulaire */
+.form-container h1 {
+    margin: 0 0 10px 0;
+    text-align: left;
+    font-size: 20px;
+    padding-bottom: 5px;
+    font-weight: normal;
+}
+
+/* Ligne bleue sous le titre */
+.form-container h1::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: #6ab2fe;
+    width: 100%;
+    margin-top: 5px;
+}
+
+/* Les label */
+.form-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+/* Champs du formulaire */
+.form-container input {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+/* Espce avant et après l'adresse */
+.form-spacer {
+    height: 20px; 
+}
+
+.form-spacer-deux{
+  height: 40px;
+}
+
+/* Bouton de soumission */
+.form-container button[type="submit"] {
+    padding: 10px;
+    background-color: #6ab2fe; 
+    color: #fff;
+    font-size: 25px;
+    font-weight:bold;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    border: none;
+}
+
+/* div boutton */
+.submit-wrapper {
+    width: 100%;
+    position: relative;
+    display: inline-block; /* pour ne pas prendre toute la largeur */
+    margin-top: 10px;
+}
+
+/* ligne bleue après le boutton */
+.submit-wrapper::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: #6ab2fe;
+    width: 100%;
+    margin-top: 20px; 
+}
+
+/* Conteneur se connecter */
+.login-link-wrapper {
+    text-align: left; 
+    margin-top: 20px;
+}
+
+/* Bouton Se connecter */
+.form-button {
+  display: inline-block; 
+    width: 50%;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #6ab2fe; 
+    text-decoration: none;
+    text-align: center; 
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 25px;
+    font-weight:bold;
+    border-radius: 5px;
+    position: relative;
+}
