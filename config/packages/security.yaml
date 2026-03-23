@@ -7,7 +7,7 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-                property: email  # l'email sera utilisé comme identifiant de connexion
+                property: email
 
     firewalls:
         dev:
@@ -17,12 +17,17 @@ security:
         main:
             lazy: true
             provider: app_user_provider
-            form_login:
-                login_path: login       # route pour le formulaire de connexion
-                check_path: login       # route où Symfony vérifie les identifiants
+
+            custom_authenticator: App\Security\UserAuthenticator
+
             logout:
                 path: logout
-                target: /               # redirection après déconnexion
+                target: /
+
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800
+                path: /
 
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }  # back-office accessible seulement aux admins
+        - { path: ^/admin, roles: ROLE_ADMIN }
