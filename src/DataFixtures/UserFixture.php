@@ -18,6 +18,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  * hashés automatiquement par Symfony avant insertion dans la base.
  * 
  * Cette fixture est uniquement destinée à l'environnement local ou de test.
+ *
+ * MODIFICATIONS :
+ * - Ajout d'une vérification pour éviter les doublons (findOneBy email)
+ * - Compatible avec --append : ne purge pas les utilisateurs existants
  */
 class UserFixture extends Fixture
 {
@@ -36,51 +40,62 @@ class UserFixture extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
-        // ------------------------
-        // Utilisateur client 1
-        // ------------------------
-        $alice = new User();
-        $alice->setName('Alice');
-        $alice->setEmail('alice@example.com');
-        $alice->setRoles(['ROLE_USER']);
-        $alice->setPassword($this->passwordHasher->hashPassword($alice, 'password123'));
-        $alice->setDeliveryAddress('10 Rue de la Paix, Paris, France');
-        $manager->persist($alice);
+        // Récupération du repository pour vérifier les doublons
+        $userRepo = $manager->getRepository(User::class);
 
         // ------------------------
-        // Utilisateur client 2
+        // Utilisateur client 1 : Alice
         // ------------------------
-        $bob = new User();
-        $bob->setName('Bob');
-        $bob->setEmail('bob@example.com');
-        $bob->setRoles(['ROLE_USER']);
-        $bob->setPassword($this->passwordHasher->hashPassword($bob, 'password456'));
-        $bob->setDeliveryAddress('15 Avenue Victor Hugo, Lyon, France');
-        $manager->persist($bob);
+        if (!$userRepo->findOneBy(['email' => 'alice@example.com'])) { // <-- vérifie si Alice existe déjà
+            $alice = new User();
+            $alice->setName('Alice');
+            $alice->setEmail('alice@example.com');
+            $alice->setRoles(['ROLE_USER']);
+            $alice->setPassword($this->passwordHasher->hashPassword($alice, 'password123'));
+            $alice->setDeliveryAddress('10 Rue de la Paix, Paris, France');
+            $manager->persist($alice);
+        }
 
         // ------------------------
-        // Administrateur 1
+        // Utilisateur client 2 : Bob
         // ------------------------
-        $admin1 = new User();
-        $admin1->setName('Admin1');
-        $admin1->setEmail('admin1@example.com');
-        $admin1->setRoles(['ROLE_ADMIN']);
-        $admin1->setPassword($this->passwordHasher->hashPassword($admin1, 'admin123'));
-        $manager->persist($admin1);
+        if (!$userRepo->findOneBy(['email' => 'bob@example.com'])) { // <-- vérifie si Bob existe déjà
+            $bob = new User();
+            $bob->setName('Bob');
+            $bob->setEmail('bob@example.com');
+            $bob->setRoles(['ROLE_USER']);
+            $bob->setPassword($this->passwordHasher->hashPassword($bob, 'password456'));
+            $bob->setDeliveryAddress('15 Avenue Victor Hugo, Lyon, France');
+            $manager->persist($bob);
+        }
 
         // ------------------------
-        // Administrateur 2
+        // Administrateur 1 : Admin1
         // ------------------------
-        $admin2 = new User();
-        $admin2->setName('Admin2');
-        $admin2->setEmail('admin2@example.com');
-        $admin2->setRoles(['ROLE_ADMIN']);
-        $admin2->setPassword($this->passwordHasher->hashPassword($admin2, 'admin456'));
-        $manager->persist($admin2);
+        if (!$userRepo->findOneBy(['email' => 'admin1@example.com'])) { // <-- vérifie si Admin1 existe déjà
+            $admin1 = new User();
+            $admin1->setName('Admin1');
+            $admin1->setEmail('admin1@example.com');
+            $admin1->setRoles(['ROLE_ADMIN']);
+            $admin1->setPassword($this->passwordHasher->hashPassword($admin1, 'admin123'));
+            $manager->persist($admin1);
+        }
+
+        // ------------------------
+        // Administrateur 2 : Admin2
+        // ------------------------
+        if (!$userRepo->findOneBy(['email' => 'admin2@example.com'])) { // <-- vérifie si Admin2 existe déjà
+            $admin2 = new User();
+            $admin2->setName('Admin2');
+            $admin2->setEmail('admin2@example.com');
+            $admin2->setRoles(['ROLE_ADMIN']);
+            $admin2->setPassword($this->passwordHasher->hashPassword($admin2, 'admin456'));
+            $manager->persist($admin2);
+        }
 
         // ------------------------
         // Envoi des données en base
         // ------------------------
-        $manager->flush();
+        $manager->flush(); // <-- flush final unique pour tous les persist
     }
 }
