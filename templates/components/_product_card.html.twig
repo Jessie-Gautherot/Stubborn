@@ -1,0 +1,20 @@
+<div class="product-card">
+    <div class="product-image">
+        <img src="{{ asset('images/' ~ product.image) }}" alt="{{ product.name }}">
+    </div>
+
+    <div class="product-info">
+        <!-- Nom du produit aligné à gauche -->
+        <div class="product-name">{{ product.name }}</div>
+
+        <!-- Prix à gauche et bouton Voir à droite -->
+        <div class="product-bottom">
+            <span class="product-price">{{ product.price }} €</span>
+            
+            <!--N’apparaît que si l’utilisateur est connecté-->
+            {% if app.user %}
+                <a href="{{ path('product_show', {'id': product.id}) }}" class="btn-view">Voir</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

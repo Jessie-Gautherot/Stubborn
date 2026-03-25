@@ -50,6 +50,14 @@ border-bottom: 1px solid #191919;
     padding: 20px;
 }
 
+/* Conteneur parent des cartes  */
+.products-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;                  
+}
+
 /* FOOTER */
 .site-footer {
     border: 1px solid #0e0e0e;
