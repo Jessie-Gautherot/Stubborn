@@ -5,13 +5,19 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\ProductRepository;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function home(): Response
+     public function home(ProductRepository $productRepository): Response
     {
-        // Rend le template home.html.twig à la racine de templates/
-        return $this->render('home.html.twig');
+        // Récupère les produits mis en avant depuis la base
+        $featuredProducts = $productRepository->findFeatured();
+
+        // Passe la variable à Twig
+        return $this->render('home.html.twig', [
+            'featuredProducts' => $featuredProducts
+        ]);
     }
 }

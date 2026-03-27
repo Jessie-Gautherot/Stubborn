@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <title>{% block title %}Stubborn Boutique{% endblock %}</title>
 
-    {# CSS principal #}
+    
     {% block stylesheets %}
+        <!-- CSS principal -->
         <link rel="stylesheet" href="{{ asset('styles/style.css') }}">
+        <!-- CSS du composant product card -->
+    <link rel="stylesheet" href="{{ asset('styles/productCard.css') }}">
     {% endblock %}
 
     {# JS / importmap #}
@@ -36,6 +39,18 @@
     </li>
 
     {% if app.user %}
+        <li>
+            <a href="{{ path('product_list') }}"
+                class="{{ app.request.attributes.get('_route') == 'product_list' ? 'active' : '' }}">
+                Boutique
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('cart_show') }}"
+                class="{{ app.request.attributes.get('_route') == 'cart_show' ? 'active' : '' }}">
+                Panier
+            </a>
+        </li>
         <li>
             <a href="{{ path('logout') }}"
                class="{{ app.request.attributes.get('_route') == 'logout' ? 'active' : '' }}">

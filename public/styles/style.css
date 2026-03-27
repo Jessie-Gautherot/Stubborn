@@ -5,6 +5,7 @@ flex-direction: row;
 justify-content: space-between;
 padding: 5px 20px 20px 20px;
 border-bottom: 1px solid #191919;
+margin-bottom: 20px;
 }
 
 .logo {
@@ -52,10 +53,11 @@ border-bottom: 1px solid #191919;
 
 /* Conteneur parent des cartes  */
 .products-grid {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 20px;                  
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1000px;   /* important pour éviter que ça s’étale trop */
+    margin: 0 auto;      /* centre la grille */
 }
 
 /* FOOTER */
