@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+
+<h1>{{ product.name }}</h1>
+
+{% include 'components/_product_card.html.twig' with { product: product } %}
+
+<hr>
+
+<h2>Choisir une taille</h2>
+
+{{ form_start(form) }}
+    {{ form_row(form.size) }}
+    <button type="submit">Ajouter au panier</button>
+{{ form_end(form) }}
+
+{% endblock %}

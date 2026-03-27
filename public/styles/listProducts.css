@@ -1,0 +1,19 @@
+/* Filtre = première colonne */
+.product-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Position des deux premiers produits à droite du filtre */
+.products-grid > .product-card:nth-child(2) {
+    grid-column: 2 / 3;
+}
+.products-grid > .product-card:nth-child(3) {
+    grid-column: 3 / 4;
+}
+
+/* Tous les autres produits remplissent la grille normalement (3 par ligne) */
+.products-grid > .product-card:nth-child(n+4) {
+    grid-column: auto / span 1;
+}
