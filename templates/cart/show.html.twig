@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/cart.css') }}">
+{% endblock %}
+
+{% block title %}Mon panier{% endblock %}
+
+{% block content %}
+<h1>Mon panier</h1>
+
+{% if cart is empty %}
+    <p>Votre panier est vide pour l'instant.</p>
+{% else %}
+
+<div class="cart-container">
+
+    {% for item in cart %}
+       <div class="cart-item">
+
+    <!-- Ligne principale : image + nom + prix + taille -->
+    <div class="cart-main">
+        <img class="cart-image"
+             src="{{ asset('images/' ~ item.image) }}"
+             alt="{{ item.product.name }}">
+        <span class="cart-name">{{ item.product.name }}</span>
+        <span class="cart-price">{{ item.product.price|number_format(2, ',', ' ') }} €</span>
+        <span class="cart-size">Taille : {{ item.size }}</span>
+    </div>
+
+    <!-- Bouton en dessous à droite -->
+    <div class="cart-actions">
+        <form action="{{ path('cart_remove') }}" method="post">
+            <input type="hidden" name="productId" value="{{ item.product.id }}">
+            <input type="hidden" name="size" value="{{ item.size }}">
+            <button type="submit" class="btn-remove">Retirer</button>
+        </form>
+    </div>
+
+</div>
+   
+
+
+</div>
+    {% endfor %}
+
+    <div class="cart-footer">
+
+    <div class="cart-buttons">
+
+        <div class="cart-total">
+            Total : {{ total|number_format(2, ',', ' ') }} €
+        </div>
+
+        <form action="{{ path('cart_checkout') }}" method="post">
+            <button class="btn-checkout" type="submit">
+                FINALISER MA COMMANDE
+            </button>
+        </form>
+
+    </div>
+    <div class="continue">
+        <a href="{{ path('product_list') }}" class="btn-continue">
+            CONTINUER MES ACHATS
+        </a>
+    </div>
+
+    </div>
+
+</div>
+
+{% endif %}
+{% endblock %}

@@ -50,7 +50,7 @@ class ProductController extends AbstractController
      * Route : /product/{id}
      */
     #[Route('/product/{id}', name: 'product_show')]
-    public function show(int $id, Request $request, ProductRepository $productRepository): Response
+    public function show(int $id, ProductRepository $productRepository): Response
     {
         // Récupère le produit via le repository
         $product = $productRepository->findProductById($id);
@@ -70,29 +70,21 @@ class ProductController extends AbstractController
             'XL' => $product->getStockXL(),
         ];
 
-        // Création du formulaire
-    $form = $this->createForm(AddToCartType::class);
+        /**
+         * Création du formulaire AddToCartType
+         * - action : route cart_add pour envoyer le formulaire au CartController
+         * - method : POST
+         */
+        $form = $this->createForm(AddToCartType::class, null, [
+            'action' => $this->generateUrl('cart_add'),
+            'method' => 'POST',
+        ]);
 
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-        $data = $form->getData();
-        $size = $data['size'];
-
-        // Ici on utilisera ton panier session (plus tard)
-        // dump($size);
-
-        return $this->redirectToRoute('product_list');
-    }
-
-        // Envoie le produit et le stock à la vue Twig pour affichage
+        // Envoie les données à la vue
         return $this->render('product/show.html.twig', [
-            'product' => $product, // Objet Product complet
-            'stock' => $stock,     // Tableau associatif taille => stock
-            'form' => $form->createView(),
+            'product' => $product,   // Objet Product complet
+            'stock' => $stock,       // Tableau taille => stock
+            'form' => $form->createView(), // Vue du formulaire
         ]);
     }
 }
-
-
-//logique métier (décrément du stock) dans un service
