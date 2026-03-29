@@ -51,6 +51,14 @@
                 Panier
             </a>
         </li>
+        {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                    <a href="{{ path('app_admin') }}"
+                       class="{{ app.request.attributes.get('_route') == 'app_admin' ? 'active' : '' }}">
+                       Back-office
+                    </a>
+                </li>
+            {% endif %}
         <li>
             <a href="{{ path('logout') }}"
                class="{{ app.request.attributes.get('_route') == 'logout' ? 'active' : '' }}">
