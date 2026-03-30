@@ -24,14 +24,13 @@ class EditProductType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Modifier le nom du produit',
+                'label' => 'Modifier le nom',
             ])
-            ->add('price', MoneyType::class, [
+           ->add('price', TextType::class, [
                 'label' => 'Modifier le prix',
-                'currency' => 'EUR',
             ])
             ->add('image', FileType::class, [
-                'label' => 'Image du produit',
+                'label' => 'Modifier l\'image',
                 'mapped' => false, 
                 'required' => false,
                 'constraints' => [

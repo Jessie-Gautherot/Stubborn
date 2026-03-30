@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Validator\Constraints\File;
 
+
 /**
  * Class AddProductType
  *
@@ -42,9 +43,8 @@ class AddProductType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nom du produit',
             ])
-            ->add('price', MoneyType::class, [
-                'label' => 'Prix du produit',
-                'currency' => 'EUR',
+            ->add('price', TextType::class, [
+                'label' => 'prix',
             ])
             ->add('featured', CheckboxType::class, [
                 'label' => 'Mettre en avant ?',
