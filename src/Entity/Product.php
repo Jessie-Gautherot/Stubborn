@@ -35,8 +35,8 @@ class Product
     /** 
      * Image du produit
      */
-    #[ORM\Column(type:"string", length:255)] 
-    private $image;
+    #[ORM\Column(type:"string", length:255, nullable:true)]
+    private ?string $image = null;      
 
     /** 
      * Mise en avant ? (booléen)
