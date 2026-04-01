@@ -53,11 +53,9 @@
             Total : {{ total|number_format(2, ',', ' ') }} €
         </div>
 
-        <form action="{{ path('cart_checkout') }}" method="post">
-            <button class="btn-checkout" type="submit">
-                FINALISER MA COMMANDE
-            </button>
-        </form>
+        <a href="{{ path('cart_checkout') }}" class="btn-checkout">
+    FINALISER MA COMMANDE
+</a>
 
     </div>
     <div class="continue">

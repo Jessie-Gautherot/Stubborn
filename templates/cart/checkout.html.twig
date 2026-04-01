@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/checkout.css') }}">
+{% endblock %}
+
+{% block title %}Finaliser ma commande{% endblock %}
+
+{% block content %}
+
+<h1>Reglez vos achats avec stripe</h1>
+
+
+<!-- Rappel du total -->
+<div class="cart-total-checkout">
+    Total à payer : {{ cart|reduce((carry, item) => carry + item.total, 0) }} €
+</div>
+
+
+<!-- Stripe Elements -->
+<div id="card-element" style="max-width: 400px; margin-bottom: 20px;"></div>
+<button id="pay">Payer</button>
+<div id="payment-message" style="margin-top: 20px; color: green;"></div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    const stripePublicKey = "{{ stripePublicKey }}";
+    const clientSecret = "{{ clientSecret }}";
+</script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{{ asset('js/stripe-elements.js') }}"></script>
+{% endblock %}

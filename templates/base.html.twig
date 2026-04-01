@@ -12,10 +12,6 @@
     <link rel="stylesheet" href="{{ asset('styles/productCard.css') }}">
     {% endblock %}
 
-    {# JS / importmap #}
-    {% block javascripts %}
-        {% block importmap %}{{ importmap('app') }}{% endblock %}
-    {% endblock %}
 </head>
 
 <body>
@@ -112,5 +108,9 @@
 
     </div>
 </footer>
+{# Bloc javascripts placé à la fin du body #}
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
 </body>
 </html>

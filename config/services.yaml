@@ -6,7 +6,6 @@
 parameters:
     uploads_directory: '%kernel.project_dir%/public/images'
 
-
 # -------------------------------
 # Services auto-wire
 # -------------------------------
@@ -17,3 +16,14 @@ services:
         exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
         autowire: true
         autoconfigure: true
+
+    # Stripe client
+    stripe.client:
+        class: 'Stripe\StripeClient'
+        arguments:
+            - '%env(STRIPE_SECRET_KEY)%'
+
+    # Service Stripe personnalisé
+    App\Service\StripeService:
+        arguments:
+            $stripeClient: '@stripe.client'

@@ -22,14 +22,6 @@ class CartService
         }
     }
 
-    /**
-     * Structure d’un item panier :
-     * [
-     *   'productId' => int,
-     *   'size' => string,
-     *   'quantity' => int
-     * ]
-     */
 
     /**
      * Ajouter un produit au panier
