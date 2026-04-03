@@ -22,6 +22,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  * MODIFICATIONS :
  * - Ajout d'une vérification pour éviter les doublons (findOneBy email)
  * - Compatible avec --append : ne purge pas les utilisateurs existants
+ * - Ajout du role user au Admin pour pouvoir tester
  */
 class UserFixture extends Fixture
 {
@@ -43,9 +44,9 @@ class UserFixture extends Fixture
         // Récupération du repository pour vérifier les doublons
         $userRepo = $manager->getRepository(User::class);
 
-        // ------------------------
+     
         // Utilisateur client 1 : Alice
-        // ------------------------
+        
         if (!$userRepo->findOneBy(['email' => 'alice@example.com'])) { // <-- vérifie si Alice existe déjà
             $alice = new User();
             $alice->setName('Alice');
@@ -56,9 +57,9 @@ class UserFixture extends Fixture
             $manager->persist($alice);
         }
 
-        // ------------------------
+       
         // Utilisateur client 2 : Bob
-        // ------------------------
+       
         if (!$userRepo->findOneBy(['email' => 'bob@example.com'])) { // <-- vérifie si Bob existe déjà
             $bob = new User();
             $bob->setName('Bob');
@@ -69,33 +70,34 @@ class UserFixture extends Fixture
             $manager->persist($bob);
         }
 
-        // ------------------------
-        // Administrateur 1 : Admin1
-        // ------------------------
-        if (!$userRepo->findOneBy(['email' => 'admin1@example.com'])) { // <-- vérifie si Admin1 existe déjà
-            $admin1 = new User();
-            $admin1->setName('Admin1');
-            $admin1->setEmail('admin1@example.com');
-            $admin1->setRoles(['ROLE_ADMIN']);
-            $admin1->setPassword($this->passwordHasher->hashPassword($admin1, 'admin123'));
-            $manager->persist($admin1);
+        // Administrateurs
+        
+        $adminsData = [
+            ['name' => 'Admin1', 'email' => 'admin1@example.com', 'password' => 'admin123'],
+            ['name' => 'Admin2', 'email' => 'admin2@example.com', 'password' => 'admin456'],
+        ];
+
+        foreach ($adminsData as $data) {
+            $admin = $userRepo->findOneBy(['email' => $data['email']]);
+            if (!$admin) {
+                $admin = new User();
+                $admin->setName($data['name']);
+                $admin->setEmail($data['email']);
+                $admin->setRoles(['ROLE_ADMIN', 'ROLE_USER']);
+                $admin->setPassword($this->passwordHasher->hashPassword($admin, $data['password']));
+                $manager->persist($admin);
+            } else {
+                // Admin existant → assure qu'il a ROLE_USER en plus
+                $roles = $admin->getRoles();
+                if (!in_array('ROLE_USER', $roles)) {
+                    $roles[] = 'ROLE_USER';
+                    $admin->setRoles($roles);
+                    $manager->persist($admin);
+                }
+            }
         }
 
-        // ------------------------
-        // Administrateur 2 : Admin2
-        // ------------------------
-        if (!$userRepo->findOneBy(['email' => 'admin2@example.com'])) { // <-- vérifie si Admin2 existe déjà
-            $admin2 = new User();
-            $admin2->setName('Admin2');
-            $admin2->setEmail('admin2@example.com');
-            $admin2->setRoles(['ROLE_ADMIN']);
-            $admin2->setPassword($this->passwordHasher->hashPassword($admin2, 'admin456'));
-            $manager->persist($admin2);
-        }
-
-        // ------------------------
         // Envoi des données en base
-        // ------------------------
-        $manager->flush(); // <-- flush final unique pour tous les persist
+        $manager->flush(); 
     }
 }
