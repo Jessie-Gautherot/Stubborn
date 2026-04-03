@@ -54,12 +54,12 @@ class AdminController extends AbstractController
 
         try {
             $imageFile->move(
-                $this->getParameter('uploads_directory'),
+                $this->getParameter('images_directory'),
                 $newFilename
             );
         } catch (FileException $e) {
-            
-        }
+    $this->addFlash('error', 'Erreur upload image : '.$e->getMessage());
+}
 
         // stocker le nom en base
         $product->setImage($newFilename);
@@ -100,7 +100,7 @@ class AdminController extends AbstractController
                     $newFilename = uniqid().'.'.$imageFile->guessExtension();
                     try {
                         $imageFile->move(
-                            $this->getParameter('uploads_directory'),
+                            $this->getParameter('images_directory'),
                             $newFilename
                         );
                     } catch (FileException $e) {
@@ -113,8 +113,8 @@ class AdminController extends AbstractController
                         $this->addFlash('success', "Produit '{$product->getName()}' modifié avec succès !");
                     } elseif ($action === 'delete') {
                       // Supprimer l'image si elle existe
-                    if ($product->getImage() && file_exists($this->getParameter('uploads_directory').'/'.$product->getImage())) {
-                        unlink($this->getParameter('uploads_directory').'/'.$product->getImage());
+                    if ($product->getImage() && file_exists($this->getParameter('images_directory').'/'.$product->getImage())) {
+                        unlink($this->getParameter('images_directory').'/'.$product->getImage());
                     }
                         $em->remove($product);
                         $em->flush();

@@ -4,7 +4,7 @@
 # Paramètres globaux
 # -------------------------------
 parameters:
-    uploads_directory: '%kernel.project_dir%/public/images'
+    images_directory: '%kernel.project_dir%/public/images'
 
 # -------------------------------
 # Services auto-wire
