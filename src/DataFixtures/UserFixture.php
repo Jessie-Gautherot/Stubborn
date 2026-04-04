@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -24,7 +25,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  * - Compatible avec --append : ne purge pas les utilisateurs existants
  * - Ajout du role user au Admin pour pouvoir tester
  */
-class UserFixture extends Fixture
+class UserFixture extends Fixture implements FixtureGroupInterface
 {
     private UserPasswordHasherInterface $passwordHasher;
 
@@ -99,5 +100,10 @@ class UserFixture extends Fixture
 
         // Envoi des données en base
         $manager->flush(); 
+    }
+
+    public static function getGroups(): array
+    {
+    return ['dev'];
     }
 }

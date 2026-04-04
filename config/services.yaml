@@ -27,3 +27,19 @@ services:
     App\Service\StripeService:
         arguments:
             $stripeClient: '@stripe.client'
+
+    # -------------------------------
+    # Fixtures
+    # -------------------------------
+
+    # Fixtures dev
+    App\DataFixtures\:
+        resource: '../src/DataFixtures'
+        autowire: true
+        autoconfigure: true
+
+    # Fixtures test
+    App\TestFixtures\:
+        resource: '../src/TestFixtures'
+        autowire: true
+        autoconfigure: true

@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Product;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 
 /**
@@ -14,7 +15,7 @@ use Doctrine\Persistence\ObjectManager;
  * - Ajout d'une vérification pour éviter les doublons (findOneBy name)
  * - Compatible avec --append : ne purgera pas la table Product
  */
-class ProductFixtures extends Fixture
+class ProductFixtures extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -59,5 +60,10 @@ class ProductFixtures extends Fixture
 
         // Envoi de tous les produits en base
         $manager->flush();
+    }
+
+    public static function getGroups(): array
+    {
+    return ['dev'];
     }
 }
