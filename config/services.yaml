@@ -43,3 +43,9 @@ services:
         resource: '../src/TestFixtures'
         autowire: true
         autoconfigure: true
+
+    # Injection explicite du UserPasswordHasherInterface pour TestFixtures
+    App\TestFixtures\TestFixtures:
+        arguments:
+            $passwordHasher: '@security.user_password_hasher'
+        tags: ['doctrine.fixture.orm']
