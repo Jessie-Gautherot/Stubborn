@@ -66,6 +66,8 @@
 
 /* boutton finaliser commande */
 .btn-checkout {
+    text-decoration: none;
+    color: #191919;
     background: #f5b5b5;
     border: 1px solid #d88;
     padding: 10px 20px;
