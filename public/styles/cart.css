@@ -1,0 +1,96 @@
+/* conteneur parent */
+.cart-item {
+    display: flex;
+    flex-direction: column; 
+    border: 1px solid #191919;
+    padding: 15px;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+/* Ligne principale du haut */
+.cart-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.cart-image {
+    width: 100px;
+    height: 100px;
+}
+
+/* Texte */
+.cart-name,
+.cart-price,
+.cart-size {
+    font-size: 14px;
+}
+
+/* conteneur Bouton retirer */
+.cart-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Bouton retirer */
+.btn-remove {
+    padding: 6px 12px;
+    border: 1px solid #191919;
+    background: white;
+    cursor: pointer;
+}
+
+/* conteneur boutons du bas */
+.cart-footer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+}
+
+/* conteneur total + finaliser */
+.cart-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding-bottom: 5px;
+    justify-content: right;
+}
+
+/* total */
+.cart-total {
+    border: 1px solid #191919;
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+/* boutton finaliser commande */
+.btn-checkout {
+    text-decoration: none;
+    color: #191919;
+    background: #f5b5b5;
+    border: 1px solid #d88;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* conteneur continuer achat */
+.continue  {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding-bottom: 5px;
+    justify-content: flex-end;
+}
+
+/* bouton continuer achat */
+.btn-continue {
+    background: #b5f5c8;
+    border: 1px solid #8dcfa2;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    width: auto;
+     min-width: 220px
+}

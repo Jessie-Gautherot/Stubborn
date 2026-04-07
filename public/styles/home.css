@@ -1,0 +1,16 @@
+h1, h2 {
+  text-align: center;
+}
+
+p {
+  font-size: larger;
+  text-align: center;
+}
+
+.featured-products{
+  margin: 50px 0;
+}
+
+.company-presentation{
+  margin-top: 40px;
+}

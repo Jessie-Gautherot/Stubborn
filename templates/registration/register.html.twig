@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - Stubborn Boutique{% endblock %}
+
+{# Bloc pour ajouter le CSS spécifique à la page register #}
+{% block stylesheets %}
+    {{ parent() }} {# conserve style.css pour le layout #}
+    <link rel="stylesheet" href="{{ asset('styles/register.css') }}"> {# CSS spécifique au formulaire #}
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>S'inscrire</h1>
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {{ form_start(registrationForm, {'attr': {'class': 'space-y-4'}}) }}
+        {{ form_row(registrationForm.name) }}
+        {{ form_row(registrationForm.email) }}
+        <div class="form-spacer"></div>
+        {{ form_row(registrationForm.deliveryAddress) }}
+        <div class="form-spacer-deux"></div>
+        {{ form_row(registrationForm.plainPassword) }}
+        {{ form_row(registrationForm.confirmPassword) }}
+        <div class="submit-wrapper">
+            <button type="submit">Créer un compte</button>
+        </div>
+    {{ form_end(registrationForm) }}
+
+    <div class="login-link-wrapper">
+        <p>Déjà inscrit ?</p>
+        <a href="{{ path('login') }}" class="form-button">Se connecter</a>
+    </div>
+</div>
+{% endblock %}

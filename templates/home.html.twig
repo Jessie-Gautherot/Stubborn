@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - Stubborn Boutique{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }} {# pour inclure le CSS global déjà présent #}
+    <link rel="stylesheet" href="{{ asset('styles/home.css') }}">
+{% endblock %}
+
+{% block content %}
+<h1>Bienvenue sur la boutique Stubborn</h1>
+
+ <!-- Section produits mis en avant -->
+    <section class="featured-products">
+        <div class="products-grid">
+            {% for product in featuredProducts %}
+                {% include 'components/_product_card.html.twig' with { 'product': product } %}
+            {% endfor %}
+        </div>
+    </section>
+
+  <!-- Section présentation de la société -->
+<section class="company-presentation">
+    <h2>À propos de Stubborn</h2>
+    <p>
+        Stubborn est une marque de sweat-shirts modernes et audacieux.
+        Nous proposons des designs uniques pour affirmer votre style.
+        "Don't compromise on your look" reflète notre philosophie.
+    </p>
+</section>
+
+{% endblock %}

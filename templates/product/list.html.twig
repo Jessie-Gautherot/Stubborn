@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }} {# inclut style.css global #}
+    <link rel="stylesheet" href="{{ asset('styles/listProducts.css') }}">
+{% endblock %}
+
+{% block title %}Boutique{% endblock %}
+
+{% block content %}
+
+<div class="products-grid">
+
+    {#Filtre (colonne 1 de la première ligne) #}
+    <div class="product-filter">
+        <form method="get" action="{{ path('product_list') }}">
+            <select name="price_range" id="price_range">
+                <option value="">-- Fourchette de prix --</option>
+                <option value="10-29" {{ selected_range == '10-29' ? 'selected' : '' }}>10€ - 29€</option>
+                <option value="29-35" {{ selected_range == '29-35' ? 'selected' : '' }}>29€ - 35€</option>
+                <option value="35-50" {{ selected_range == '35-50' ? 'selected' : '' }}>35€ - 50€</option>
+            </select>
+            <button type="submit">Filtrer</button>
+        </form>
+    </div>
+
+    {#Boucle sur les produits #}
+    {% if products is not empty %}
+        {% for product in products %}
+            {% include 'components/_product_card.html.twig' with { product: product } %}
+        {% endfor %}
+    {% else %}
+        <p>Aucun produit trouvé.</p>
+    {% endif %}
+</div>
+<br>
+{# Lien vers la page d'accueil #}
+<div>
+    <a href="{{ path('home') }}">← Retour à la page d'accueil</a>
+</div>
+{% endblock %}

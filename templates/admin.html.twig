@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }} {# pour inclure le CSS global déjà présent #}
+    <link rel="stylesheet" href="{{ asset('styles/admin.css') }}">
+{% endblock %}
+
+{% block content %}
+<h1>Back-office</h1>
+
+<div class="admin-container">
+
+    {# Formulaire 1 : Ajouter un produit#}
+    <section class="add-product">
+    <h2>Ajouter un produit</h2>
+    {{ form_start(addProductForm, {'attr': {'enctype': 'multipart/form-data'}}) }}
+
+    <div class="inputs-row">
+        <div class="input-group">
+            {{ form_label(addProductForm.image) }}
+            {{ form_widget(addProductForm.image) }}
+        </div>
+        <div class="input-group">
+            {{ form_label(addProductForm.name) }}
+            {{ form_widget(addProductForm.name) }}
+        </div>
+        <div class="input-group price-group">
+    {{ form_label(addProductForm.price) }}
+    <div class="price-wrapper">
+        {{ form_widget(addProductForm.price) }}
+        <span class="euro">€</span>
+    </div>
+</div>
+        <div class="input-group">
+            {{ form_label(addProductForm.stockXS) }}
+            {{ form_widget(addProductForm.stockXS) }}
+        </div>
+        <div class="input-group">
+            {{ form_label(addProductForm.stockS) }}
+            {{ form_widget(addProductForm.stockS) }}
+        </div>
+        <div class="input-group">
+            {{ form_label(addProductForm.stockM) }}
+            {{ form_widget(addProductForm.stockM) }}
+        </div>
+        <div class="input-group">
+            {{ form_label(addProductForm.stockL) }}
+            {{ form_widget(addProductForm.stockL) }}
+        </div>
+        <div class="input-group">
+            {{ form_label(addProductForm.stockXL) }}
+            {{ form_widget(addProductForm.stockXL) }}
+        </div>
+    </div>
+    <div class="form-bottom-row">
+        <div class="checkbox-left">
+            {{ form_widget(addProductForm.featured) }}
+            {{ form_label(addProductForm.featured) }}
+        </div>
+        <button type="submit">Ajouter</button>
+    </div>
+
+    {{ form_end(addProductForm) }}
+</section>
+
+  
+
+    {# Formulaire 2 : Modifier / Supprimer produits #}
+   <section class="manage-products">
+    <h2>Gérer les produits existants</h2>
+
+    {% for product in products %}
+    <div class="product-item">
+        {{ form_start(productForms[product.id], {'attr': {'enctype': 'multipart/form-data'}}) }}
+
+        <div class="inputs-row">
+            <!-- Image -->
+            <div class="input-group">
+                {% if product.image %}
+                    <img src="{{ asset('images/' ~ product.image) }}" width="100" style="margin-bottom:5px;">
+                {% endif %}
+                {{ form_label(productForms[product.id].image) }}
+                {{ form_widget(productForms[product.id].image) }}
+            </div>
+
+            <!-- Nom -->
+            <div class="input-group">
+                {{ form_label(productForms[product.id].name) }}
+                {{ form_widget(productForms[product.id].name) }}
+            </div>
+
+            <!-- Prix -->
+            <div class="input-group price-group">
+    {{ form_label(productForms[product.id].price) }}
+    <div class="price-wrapper">
+        {{ form_widget(productForms[product.id].price) }}
+        <span class="euro">€</span>
+    </div>
+</div>
+
+            <!-- Stocks -->
+            <div class="input-group">
+                {{ form_label(productForms[product.id].stockXS) }}
+                {{ form_widget(productForms[product.id].stockXS) }}
+            </div>
+            <div class="input-group">
+                {{ form_label(productForms[product.id].stockS) }}
+                {{ form_widget(productForms[product.id].stockS) }}
+            </div>
+            <div class="input-group">
+                {{ form_label(productForms[product.id].stockM) }}
+                {{ form_widget(productForms[product.id].stockM) }}
+            </div>
+            <div class="input-group">
+                {{ form_label(productForms[product.id].stockL) }}
+                {{ form_widget(productForms[product.id].stockL) }}
+            </div>
+            <div class="input-group">
+                {{ form_label(productForms[product.id].stockXL) }}
+                {{ form_widget(productForms[product.id].stockXL) }}
+            </div>
+        </div>
+
+        <!-- Checkbox + boutons -->
+        <div class="form-bottom-row">
+            <div class="checkbox-left">
+                {{ form_widget(productForms[product.id].featured) }}
+                {{ form_label(productForms[product.id].featured) }}
+            </div>
+            <button type="submit" name="action" value="delete">Supprimer</button>
+            <button type="submit" name="action" value="update">Modifier</button>
+        </div>
+
+        <input type="hidden" name="action_id" value="{{ product.id }}">
+        {{ form_end(productForms[product.id]) }}
+    </div>
+    {% endfor %}
+</section>
+
+</div>
+
+{% endblock %}

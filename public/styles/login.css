@@ -1,0 +1,130 @@
+/* Conteneur du formulaire */
+.form-container {
+    padding: 30px 40px;
+    border: 1px solid #000; 
+    width: 400px; 
+    box-sizing: border-box;
+    margin: 50px auto;
+}
+
+/* Titre du formulaire */
+.form-container h1 {
+    margin: 0 0 10px 0;
+    text-align: left;
+    font-size: 20px;
+    padding-bottom: 5px;
+    font-weight: normal;
+}
+
+/* Ligne bleue sous le titre */
+.form-container h1::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: #6ab2fe;
+    width: 100%;
+    margin-top: 5px;
+}
+
+/* Labels */
+.form-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+/* Champs du formulaire */
+.form-container input {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+
+/* Conteneur boutton et lien */
+.submit-wrapper {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+/* Bouton de soumission */
+.form-container button[type="submit"] {
+    padding: 10px;
+    background-color: #6ab2fe; 
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    border: none;
+}
+
+.login-link-wrapper {
+    text-align: left; 
+    margin-top: 20px;
+}
+
+/* Faux lien Mot de passe oublié  */
+.forgot-password-wrapper {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.forgot-password-link {
+    color : rgba(128, 128, 236, 0.879)
+}
+
+.forgot-password-link:hover {
+    text-decoration: underline;
+}
+
+
+/* Ligne bleue après le faux lien */
+.submit-wrapper::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: #6ab2fe;
+    width: 100%;
+    margin-top: 20px; 
+}
+
+/* Bouton créer un compte */
+.form-button {
+    display: inline-block; 
+    width: 70%;
+    padding: 10px 0px;
+    cursor: pointer;
+    background-color: #6ab2fe; 
+    text-decoration: none;
+    text-align: center; 
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 25px;
+    font-weight:bold;
+    border-radius: 5px;
+    position: relative;
+    border: none;
+}
+
+/* Lien retour accueil */
+.home-link-wrapper {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.home-link {
+    color: rgba(128, 128, 236, 0.879);
+}
+
+.home-link:hover {
+    text-decoration: underline;
+}

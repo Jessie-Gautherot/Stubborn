@@ -1,0 +1,124 @@
+/* Titres */
+.admin-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.admin-container h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+/* Containers form 1 */
+.add-product {
+     display: flex;               
+    flex-direction: column;      
+    justify-content: center;     
+    background-color: #f8d7da;
+    border: 1px solid black;
+    padding: 20px;
+    min-height: 200px;
+    
+}
+
+.product-item {
+    background-color: white;
+    border: 1px solid black;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Ligne label et input */
+.inputs-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+/* colone label et input */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+/* Inputs */
+.input-group input,
+.input-group select {
+    padding: 5px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* Labels */
+.input-group label {
+    margin-bottom: 5px;
+}
+
+/* Prix (€ dans input) */
+.price-wrapper {
+    position: relative;
+}
+
+.price-wrapper input {
+    padding-right: 20px;
+}
+
+.price-wrapper .euro {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* parcourir */
+input[type="file"] {
+    color: transparent;
+}
+
+input[type="file"]::file-selector-button {
+    margin-right: 10px;
+}
+
+.product-item .input-group {
+    justify-content: center;
+}
+
+/* Ligne des bouttons*/
+.form-bottom-row {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.checkbox-left {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Buttons */
+button {
+    background-color: white;
+    color: black;
+    padding: 8px 15px;
+    cursor: pointer;
+    padding: 10px 60px;
+    font-size: 1.2rem;    
+    border: 1px solid black; 
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .inputs-row {
+        flex-direction: column;
+    }
+
+    .form-bottom-row {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 10px;
+    }
+}

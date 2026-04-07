@@ -1,3 +1,7 @@
 framework:
     mailer:
         dsn: '%env(MAILER_DSN)%'
+        enabled: true
+        # messenger: false  <-- supprimer cette ligne
+        # Pour désactiver l’envoi via le bus de messages, utiliser message_bus
+        message_bus: null
