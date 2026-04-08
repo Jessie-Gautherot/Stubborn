@@ -3,7 +3,7 @@
 ## Présentation
 Cette application Symfony est un TP.  
 Il s'agit d'un site E-commerce proposant des sweatshirts à la vente.  
-Il permet d'effectuer des achats fictifs grâce à Stripe Sandbox.
+Il permet d'effectuer des achats fictifs grâce à Stripe en mode test (Sandbox).
 
 ## 1. Prérequis
 Avant de commencer, assurez-vous d’avoir installé :
@@ -13,6 +13,7 @@ Avant de commencer, assurez-vous d’avoir installé :
 - Composer (https://getcomposer.org/)
 - MySQL Community Server 8.4.8  
 - Navigateur pour tester le site  
+- Terminal compatible bash
 
 ## 2. Cloner le projet
 ```bash
@@ -20,44 +21,49 @@ git clone https://github.com/Jessie-Gautherot/Stubborn
 cd Stubborn
 ```
 
-## 3. Installation 
+## 3. Configuration de l'environnement
 
-Toutes les étapes d'installation sont automatisées grâce au **Makefile**.  
-Composer doit être installé globalement.
-
-Une seule commande permet de configurer le projet :
+1. À l'aide du fichier `.env.example`, créez et configurez votre `.env.local`.
 
 ```bash
-make install
+cp .env.example .env.local
 ```
-Cette commande va automatiquement :
-- Copier `.env.example` → `.env.local` (si pas déjà présent)  
-- Installer des dépendances Composer  
-- Créer et migrer la base MySQL `stubborn_db`  
-- Charger les fixtures dev  
-  
-### IMPORTANT – Configuration Stripe
 
-Avant de lancer l’application, assurez-vous que le fichier `.env.local` est bien basé sur `.env.example` puis renseignez les valeurs des clés Stripe dans `.env.local` :
+2. Modifier `.env.local` :
 
-- `STRIPE_SECRET_KEY`
-- `STRIPE_PUBLISHABLE_KEY`
+- Adapter `DATABASE_URL` selon votre configuration locale.  
 
-Ces valeurs sont fournies dans le rendu du devoir.
+Exemple :
 
-Sans ces clés, l’application fonctionne normalement, mais le paiement ne sera pas disponible.
-  
-### Base de données
-Si la connexion à la base échoue, modifiez la variable `DATABASE_URL` dans le fichier `.env.local` avec vos identifiants MySQL.  
-Par exemple :
-```bash
+```env
 DATABASE_URL="mysql://user:password@127.0.0.1:3306/stubborn_db"
 ```
 
-## 4. Démarrage
+- Ajouter les clés Stripe en mode test fournies dans le rendu du devoir :
+
+```env
+STRIPE_SECRET_KEY="votre_clef_secrète_test"
+STRIPE_PUBLISHABLE_KEY="votre_clef_publiable_test"
+```
+   
+## 4. Installation automatisée 
+Toutes les étapes d'installation sont automatisées via le script :
 
 ```bash
-make start
+php project.php install
+```
+
+Cette commande :
+  
+- Installe les dépendances Composer  
+- Créer la base de données  
+- Execute les migrations
+- Charge les fixtures 
+  
+## 5. Lancement du projet
+
+```bash
+php project.php start
 ```
 
 Cette commande :
@@ -66,16 +72,16 @@ Cette commande :
 - Démarre le serveur Symfony en arrière-plan  
 - Application accessible sur http://localhost:8000  
 
-## 5. Tests
+## 6. Tests
 
-Les tests sont automatiquement exécutés au lancement du projet via la commande `make start`. 
+Les tests sont automatiquement exécutés au lancement du projet via la commande `php project.php start`. 
 
-## 6. Accès
+## 7. Accès
 
 Accédez à l’application via :  
 http://localhost:8000
 
-## 7. Connexion 
+## 8. Connexion 
 
 ### Admin
 - Email : admin1@example.com  
@@ -85,14 +91,14 @@ http://localhost:8000
 - Email : bob@example.com  
 - Mot de passe : password456  
 
-## 8. Paiement Stripe (mode test)
+## 9. Paiement Stripe (mode test)
 
-- Les valeurs des variables STRIPE_SECRET_KEY et STRIPE_PUBLISHABLE_KEY de  `.env.local` doivent correspondre aux informations fournies dans le rendu du devoir  
+- Les valeurs des variables STRIPE_SECRET_KEY et        STRIPE_PUBLISHABLE_KEY sont fournies dans le rendu du devoir  
 - Aucun compte Stripe n’est nécessaire  
 - Les paiements sont simulés en mode développement (sandbox)  
 
 
-## 9. Faire un achat test
+## 10. Faire un achat test
 
 Utiliser une carte test Stripe :
 
